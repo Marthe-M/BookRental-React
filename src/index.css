@@ -1,0 +1,134 @@
+@font-face {
+    font-family: euclid;
+    src: url(./assets/EuclidSquare-Regular.ttf);
+  }
+
+  body {
+    font-family: euclid;
+    background-color: #E4E4E7;
+  }
+
+  .app-container {
+    display: grid;
+    grid-template-rows: 1fr 7fr 1fr;
+  }
+
+  .header, .footer {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 10px;
+   }
+
+   .main-container {
+    display: flex;
+   }
+
+   input[type=text] {
+    border: none;
+    border-bottom: 2px solid rgb(48, 48, 48);
+    background-color: transparent;
+    padding: 10px;
+    margin:10px;
+    width: 200px;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+  }
+
+  .login-button{
+    background-color: #00e600;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    width: 100px;
+   
+  }
+
+  select {
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+  }
+
+
+  .book-add-container {
+    margin-left: 50px;
+  }
+
+  .book-add-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bookoverview-searchbar {
+    display: flex;
+    justify-content: space-around;
+    width: 800px;
+  
+  }
+
+  .bookoverview-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 800px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .bookoverview-table thead tr {
+    background-color: #03AB03;
+    color: #ffffff;
+    text-align: left;
+}
+
+.bookoverview-table th,
+.bookoverview-table td {
+    padding: 12px 15px;
+}
+
+.bookoverview-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.bookoverview-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.bookoverview-table tbody tr:last-of-type {
+    border-bottom: 2px solid #03AB03;
+}
+
+.table-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.icon:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.basic-button {
+    background-color: #03AB03;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+}
