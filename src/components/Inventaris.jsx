@@ -15,7 +15,7 @@ function BookOverview() {
   const [deleteId, setDeleteId] = useState()
 
   function getAllBooks() {
-    fetch("http://localhost:8082/book/all").then(res => res.json()).then(data => setBookData(data))
+    fetch("https://localhost:7211/api/Book").then(res => res.json()).then(data => setBookData(data))
   }
 
   function addBook() {
@@ -27,7 +27,7 @@ function BookOverview() {
     setTitle('');
     setAuthor('');
     setIsbn('');
-    fetch("http://localhost:8082/book/create", {
+    fetch("https://localhost:7211/api/Book/add", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ function BookOverview() {
   }
 
   function deleteBook(id) {
-    fetch(`http://localhost:8082/book/${id}/delete`, {
+    fetch(`https://localhost:7211/api/Book/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ function BookOverview() {
       author,
       isbn
     }
-    fetch(`http://localhost:8082/book/${newBook.id}/edit`, {
+    fetch(`https://localhost:7211/api/Book/${newBook.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
