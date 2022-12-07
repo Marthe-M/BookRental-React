@@ -1,10 +1,10 @@
 import React from 'react'
-import BookOverview from './BookOverview'
+import Inventaris from './Inventaris'
 
 function Main() {
   return (
     <div>
-      <BookOverview />
+      <Inventaris />
     </div>
   )
 }

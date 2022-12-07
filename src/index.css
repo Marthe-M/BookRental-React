@@ -1,134 +1,209 @@
 @font-face {
-    font-family: euclid;
-    src: url(./assets/EuclidSquare-Regular.ttf);
+  font-family: euclid;
+  src: url(./assets/EuclidSquare-Regular.ttf);
+}
+
+@font-face {
+  font-family: euclid-semibold;
+  src: url(./assets/EuclidSquare-SemiBold.ttf);
+}
+
+
+@font-face {
+  font-family: euclid-bold;
+  src: url(./assets/EuclidSquare-Bold.ttf);
+}
+
+body {
+  font-family: euclid;
+  background-color: #E4E4E7;
+}
+
+.app-container {
+  display: grid;
+  grid-template-rows: 15vh 70vh 5vh;
+  grid-column-gap: 10px;
+}
+
+
+.header-img {
+  width: 100px;
+  padding: 10px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  margin: 0;
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+
+.inventaris-container {
+  display: flex;
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid rgb(48, 48, 48);
+  background-color: transparent;
+  padding: 20px;
+  margin: 20px;
+  width: 400px;
+  font-size: 24px;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+.login-header, .inventaris-header {
+  margin-left: 100px;
+}
+
+.login-header h4, .inventaris-header h4 {
+  color: #03Ab03;
+  font-family: euclid-bold;
+  font-size: 20px;
+  margin-bottom: 10px;
   }
 
-  body {
-    font-family: euclid;
-    background-color: #E4E4E7;
-  }
-
-  .app-container {
-    display: grid;
-    grid-template-rows: 1fr 7fr 1fr;
-  }
-
-  .header, .footer {
-    background-color: black;
-    color: white;
-    margin: 0;
-    padding: 10px;
-   }
-
-   .main-container {
-    display: flex;
-   }
-
-   input[type=text] {
-    border: none;
-    border-bottom: 2px solid rgb(48, 48, 48);
-    background-color: transparent;
-    padding: 10px;
-    margin:10px;
-    width: 200px;
-  }
-
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-size: 20px;
-  }
-
-  .login-button{
-    background-color: #00e600;
-    padding: 15px;
-    border-radius: 10px;
-    color: white;
-    width: 100px;
-   
-  }
-
-  select {
-    background-color: transparent;
-    border: none;
-    padding: 0 1em 0 0;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: inherit;
-    line-height: inherit;
-  }
-
-
-  .book-add-container {
-    margin-left: 50px;
-  }
-
-  .book-add-form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .bookoverview-searchbar {
-    display: flex;
-    justify-content: space-around;
-    width: 800px;
   
+.login-header h2, .inventaris-header h2 {
+  margin-top: 0;
+  font-family: euclid-bold;
+  font-size: 36px;
   }
 
-  .bookoverview-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    width: 800px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
+.login-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
+}
 
-  .bookoverview-table thead tr {
-    background-color: #03AB03;
-    color: #ffffff;
-    text-align: left;
+.login-button,  .book-add-container button {
+  background-color: black;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 30px;
+  color: white;
+ text-align: center;
+}
+
+.login-button a:visited, .login-button a:link {
+  color: white;
+  text-decoration: none;
+}
+
+::placeholder {
+  font-size: 24px;
+  color: #A1A1AA;
+}
+
+.bookoverview-searchbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 900px;
+  margin-left: 100px;
+  font-family: euclid-semibold;
+}
+
+select {
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+}
+
+.bookoverview-searchbar ::placeholder {
+  font-size: 18px;
+}
+
+.bookoverview-searchbar input[type=text] {
+  padding: 10px;
+  width: 200px;
+  margin: 0;
+}
+
+.bookoverview-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  margin-left: 100px;
+  font-size: 0.9em;
+  width: 900px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.bookoverview-table thead tr {
+  background-color: #03AB03;
+  color: #ffffff;
+  text-align: left;
 }
 
 .bookoverview-table th,
 .bookoverview-table td {
-    padding: 12px 15px;
+  padding: 12px 15px;
 }
 
 .bookoverview-table tbody tr {
-    border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 .bookoverview-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 .bookoverview-table tbody tr:last-of-type {
-    border-bottom: 2px solid #03AB03;
+  border-bottom: 2px solid #03AB03;
 }
 
 .table-buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .icon {
-    font-size: 20px;
+  font-size: 20px;
+  color: #03AB03;
 }
 
 .icon:hover {
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.basic-button {
-    background-color: #03AB03;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: inherit;
-    border: none;
+.book-add-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  border: 2px solid black;
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  padding: 25px;
 }
+
+.book-add-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-add-form input[type=text] {
+  padding: 10px;
+ }
