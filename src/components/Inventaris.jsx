@@ -3,7 +3,7 @@ import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
 
-function BookOverview() {
+function Inventaris() {
   const [bookData, setBookData] = useState([]);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -59,15 +59,13 @@ function BookOverview() {
     setAddModus(true)
     setUpdateModus(true)
     setUpdatedId(book.id)
-    console.log(book)
     setTitle(book.title);
     setAuthor(book.author);
     setIsbn(book.isbn);
   }
 
   function sendBookUpdate() {
-    console.log("Send update")
-    let newBook = {
+      let newBook = {
       id: updatedId,
       title,
       author,
@@ -103,7 +101,6 @@ function leaveScreen () {
     bookData
       .map(book => (
         <tr key={book.id} >
-          <td>{book.id}</td>
           <td>{book.title}</td>
           <td>{book.author}</td>
           <td>{book.isbn}</td>
@@ -116,11 +113,10 @@ function leaveScreen () {
 
   return (
     <div className="inventaris-container">
-
       <div className="bookoverview-container">
         <div className="inventaris-header">
           <h4>BEKIJK INVENTARIS</h4>
-          <h2>Inventaris</h2>
+          <h2>Boeken</h2>
         </div>
         <div className="bookoverview-searchbar">
           <input type='text' placeholder="Zoek..." />
@@ -143,7 +139,6 @@ function leaveScreen () {
         <table className="bookoverview-table">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Title</th>
               <th>Author</th>
               <th>Isbn</th>
@@ -154,7 +149,6 @@ function leaveScreen () {
             {listItemsTable}
           </tbody>
         </table>
-
       </div>
 
       {addModus ? <div className="book-add-container">
@@ -176,15 +170,15 @@ function leaveScreen () {
             setIsbn(e.target.value);
           }} />
           <button type="submit" className="basic-button">{updateModus ? 'Update Book' : 'Add New Book'}</button>
-          <button type="submit" className="basic-button" onClick={() => leaveScreen() }>Annuleren</button>
+          <button className="basic-button" onClick={() => leaveScreen() }>Annuleren</button>
         </form>
 
       </div> : null}
       {deleteModus ? <div className="book-add-container"><h2>Weet je zeker dat je {title} uit het systeem wil halen?</h2>
       <div><button type="submit" className="basic-button" onClick={() => deleteBook(deleteId)}>Verwijder boek</button>
-      <button type="submit" className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
+      <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
     </div>
   )
 }
 
-export default BookOverview
+export default Inventaris
