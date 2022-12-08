@@ -19,36 +19,21 @@ body {
   background-color: #E4E4E7;
 }
 
-.app-container {
-  display: grid;
-  grid-template-rows: 15vh 70vh 5vh;
-  grid-column-gap: 10px;
+.header {
+   height: 100px;
 }
-
-
 .header-img {
   width: 100px;
-  padding: 10px;
+  padding: 20px;
   position:absolute;
   top:0;
   right:0;
 }
 
-.footer {
-  background-color: black;
-  color: white;
-  font-size: 12px;
-  margin: 0;
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-}
-
-
-.inventaris-container {
+.main-container {
   display: flex;
 }
+
 
 input[type=text] {
   border: none;
@@ -75,6 +60,9 @@ input[type=text]:focus {
   margin-bottom: 10px;
   }
 
+  .inventaris-header.red h4 {
+    color: darkred;
+  }
   
 .login-header h2, .inventaris-header h2 {
   margin-top: 0;
@@ -90,7 +78,7 @@ input[type=text]:focus {
   font-size: 20px;
 }
 
-.login-button,  .book-add-container button {
+.login-button,  .inventaris-add-container button {
   background-color: black;
   padding: 12px 24px;
   border-radius: 50px;
@@ -98,6 +86,8 @@ input[type=text]:focus {
   color: white;
  text-align: center;
 }
+
+
 
 .login-button a:visited, .login-button a:link {
   color: white;
@@ -109,16 +99,16 @@ input[type=text]:focus {
   color: #A1A1AA;
 }
 
-.bookoverview-searchbar {
+.inventaris-searchbar {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  width: 850px;
+  width: 700px;
   margin-left: 100px;
   font-family: euclid-semibold;
 }
 
-.bookoverview-searchbar h3{
+.inventaris-searchbar h3{
 margin-bottom: 0;
 }
 
@@ -132,48 +122,57 @@ select {
   line-height: inherit;
 }
 
-.bookoverview-searchbar ::placeholder {
+.inventaris-searchbar ::placeholder {
   font-size: 18px;
 }
 
-.bookoverview-searchbar input[type=text] {
+.inventaris-searchbar input[type=text] {
   padding: 10px;
   width: 200px;
   margin: 0;
 }
 
-.bookoverview-table {
+.inventaris-table {
   border-collapse: collapse;
   margin: 25px 0;
   margin-left: 100px;
   font-size: 0.9em;
-  width: 850px;
+  width: 700px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   max-height: 250px;
   overflow-y: scroll;
 }
 
-.bookoverview-table thead tr {
+.inventaris-table thead tr {
   background-color: #03AB03;
   color: #ffffff;
   text-align: left;
 }
 
-.bookoverview-table th,
-.bookoverview-table td {
+.inventaris-table thead tr.red {
+  background-color: darkred;
+
+}
+
+.inventaris-table th,
+.inventaris-table td {
   padding: 12px 15px;
 }
 
-.bookoverview-table tbody tr {
+.inventaris-table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.bookoverview-table tbody tr:nth-of-type(even) {
+.inventaris-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.bookoverview-table tbody tr:last-of-type {
+.inventaris-table tbody tr:last-of-type {
   border-bottom: 2px solid #03AB03;
+}
+
+.inventaris-table tbody tr.red:last-of-type {
+  border-bottom: 2px solid darkred;
 }
 
 .table-buttons {
@@ -187,29 +186,37 @@ select {
   color: #03AB03;
 }
 
+.icon.red {
+  color: darkred;
+}
+
 .icon:hover {
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.book-add-container {
+.inventaris-add-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
   border: 2px solid black;
-  background-color: rgb(243, 243, 243);
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background-color: rgb(228, 228, 228);
+  border-radius: 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   padding: 25px;
 }
 
-.book-add-form {
+.inventaris-add-form {
   display: flex;
   flex-direction: column;
 }
 
-.book-add-form input[type=text] {
+.inventaris-add-form input[type=text] {
   padding: 10px;
+ }
+
+ .inventaris-add-container button {
+  font-size: 20px;
  }

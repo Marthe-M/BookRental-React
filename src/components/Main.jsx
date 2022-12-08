@@ -4,7 +4,7 @@ import Users from './Users'
 
 function Main() {
   return (
-    <div>
+    <div className="main-container">
       <Inventaris />
       <Users />
     </div>

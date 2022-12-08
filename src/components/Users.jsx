@@ -100,25 +100,25 @@ function leaveScreen () {
     userData &&
     userData
       .map(user => (
-        <tr key={user.id} >
+        <tr key={user.id} className="red">
           <td>{user.firstName}</td>
           <td>{user.lastName}</td>
           <td>{user.email}</td>
           <td className="table-buttons">
-            <span onClick={() => updateUser(user)}><BsPencilFill className="icon" /></span>
-            <span onClick={() => showDeletePopUp(user)}><BsTrashFill className="icon" /></span>
+            <span onClick={() => updateUser(user)}><BsPencilFill className="icon red" /></span>
+            <span onClick={() => showDeletePopUp(user)}><BsTrashFill className="icon red" /></span>
           </td>
         </tr>
       ))
 
   return (
     <div className="inventaris-container">
-      <div className="bookoverview-container">
-        <div className="inventaris-header">
+      <div>
+        <div className="inventaris-header red">
           <h4>BEKIJK OVERZICHT</h4>
           <h2>Gebruikers</h2>
         </div>
-        <div className="bookoverview-searchbar">
+        <div className="inventaris-searchbar">
           <input type='text' placeholder="Zoek..." />
           <div><label>
             In dienst:
@@ -128,11 +128,11 @@ function leaveScreen () {
               defaultChecked={true}
             />
           </label></div>
-          <h3>Voeg nieuwe gebruiker toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3>
+          <h3>Voeg nieuwe gebruiker toe<MdLibraryAdd className="icon red" onClick={() => setAddModus(true)} />  </h3>
         </div>
-        <table className="bookoverview-table">
+        <table className="inventaris-table">
           <thead>
-            <tr>
+            <tr className="red">
               <th>Voornaam</th>
               <th>Achternaam</th>
               <th>Email</th>
@@ -146,9 +146,9 @@ function leaveScreen () {
 
       </div>
 
-      {addModus ? <div className="book-add-container">
+      {addModus ? <div className="inventaris-add-container">
         <h2>{updateModus ? 'Update User' : 'Add New User'}</h2>
-        <form className="book-add-form" onSubmit={(e) => {
+        <form className="inventaris-add-form" onSubmit={(e) => {
           e.preventDefault();
           if (updateModus === false) {
             addUser();
@@ -164,12 +164,14 @@ function leaveScreen () {
           <label>Email:</label><input type='text' value={email} onChange={(e) => {
             setemail(e.target.value);
           }} />
+          <div>
           <button type="submit" className="basic-button">{updateModus ? 'Update User' : 'Add New User'}</button>
           <button className="basic-button" onClick={() => leaveScreen() }>Annuleren</button>
+          </div>
         </form>
 
       </div> : null}
-      {deleteModus ? <div className="book-add-container"><h2>Weet je zeker dat je {firstName} uit het systeem wil halen?</h2>
+      {deleteModus ? <div className="inventaris-add-container"><h2>Weet je zeker dat je {firstName} uit het systeem wil halen?</h2>
       <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder boek</button>
       <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
     </div>
