@@ -50,7 +50,7 @@ input[type=text]:focus {
 }
 
 .login-header, .inventaris-header {
-  margin-left: 100px;
+  margin-left: 75px;
 }
 
 .login-header h4, .inventaris-header h4 {
@@ -102,9 +102,9 @@ input[type=text]:focus {
 .inventaris-searchbar {
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  width: 700px;
-  margin-left: 100px;
+  align-items: flex-end;
+  width: 600px;
+  margin-left: 75px;
   font-family: euclid-semibold;
 }
 
@@ -135,9 +135,9 @@ select {
 .inventaris-table {
   border-collapse: collapse;
   margin: 25px 0;
-  margin-left: 100px;
+  margin-left: 75px;
   font-size: 0.9em;
-  width: 700px;
+  width: 600px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   max-height: 250px;
   overflow-y: scroll;

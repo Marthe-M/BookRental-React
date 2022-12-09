@@ -64,7 +64,7 @@ function Users() {
     setemail(user.email)
   }
 
-  function sendBookUpdate() {
+  function sendUserUpdate() {
     let newUser = {
       id: updatedId,
       firstName,
@@ -87,6 +87,11 @@ function Users() {
   }
 
 function leaveScreen () {
+  setfirstName('');
+    setlastName('');
+    setemail('');
+    setUpdatedId();
+    setDeleteId();
   setUpdateModus(false)
   setAddModus(false)
 }
@@ -153,7 +158,7 @@ function leaveScreen () {
           if (updateModus === false) {
             addUser();
           } else {
-            sendBookUpdate()
+            sendUserUpdate()
           }
         }}>    <label>Voornaam:</label><input type='text' value={firstName} onChange={(e) => {
           setfirstName(e.target.value);
@@ -172,7 +177,7 @@ function leaveScreen () {
 
       </div> : null}
       {deleteModus ? <div className="inventaris-add-container"><h2>Weet je zeker dat je {firstName} uit het systeem wil halen?</h2>
-      <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder boek</button>
+      <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder user</button>
       <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
     </div>
   )

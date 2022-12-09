@@ -87,6 +87,11 @@ function Inventaris() {
   }
 
 function leaveScreen () {
+  setTitle('');
+  setAuthor('');
+  setIsbn('');
+  setUpdatedId();
+  setDeleteId();
   setUpdateModus(false)
   setAddModus(false)
 }
