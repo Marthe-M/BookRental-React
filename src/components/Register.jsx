@@ -14,7 +14,7 @@ function Register() {
                 password,
                 email
             }
-            fetch(`https://localhost:7211/api/User/register`, {
+            fetch(`https://localhost:7211/api/Registration`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
