@@ -10,7 +10,7 @@ function Login() {
             </div>
             <div className="login-input">
                 <input type='text' placeholder="Gebruikersnaam*" />
-                <input type='text' placeholder="Wachtwoord*" />
+                <input type='password' placeholder="Wachtwoord*" />
                 <div className="login-button"><Link to="main">Login</Link></div>
             </div>
         </div>
