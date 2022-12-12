@@ -35,7 +35,7 @@ body {
 }
 
 
-input[type=text] {
+input[type=text], input[type=password]  {
   border: none;
   border-bottom: 2px solid rgb(48, 48, 48);
   background-color: transparent;
