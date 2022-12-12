@@ -62,6 +62,7 @@ function Inventaris() {
     setTitle(book.title);
     setAuthor(book.author);
     setIsbn(book.isbn);
+    
   }
 
   function sendBookUpdate() {
@@ -84,7 +85,7 @@ function Inventaris() {
     setUpdatedId();
     setUpdateModus(false)
     setAddModus(false)
-  }
+    }
 
 function leaveScreen () {
   setTitle('');

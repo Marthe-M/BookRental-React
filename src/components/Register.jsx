@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"
 
 function Register() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
 
     function registerUser() {
-        console.log("register:" + email, username, password)
-        if (password === password2) {
+        if (password != password2) {
+            alert('Wachtwoorden komen niet overeen')
+        } else {
             let userToRegister = {
                 username,
                 password,
@@ -20,20 +23,23 @@ function Register() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(userToRegister)
-            }).then(response => {
-                if (response.status == 404) {
-                    alert('Emailadres niet correct')
+            }).then((response) => {
+                if (response.ok) {
+                  return response.json();
                 }
+                throw new Error('Gegevens incorrect');
+              })
+              .then((result) => {
+                console.log(result)
+                setUsername('');
+                setPassword('');
+                setPassword2('');
+                navigate('/main');
+              })
+              .catch((error) => {
+                alert(error)
+              });
             }
-            )
-            setEmail('');
-            setUsername('');
-            setPassword('');
-            setPassword2('');
-        } else {
-            alert('Wachtwoorden komen niet overeen')
-        }
-
     }
 
     return (
