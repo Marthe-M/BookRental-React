@@ -8,7 +8,7 @@ function Register() {
 
     function registerUser() {
         console.log("register:" + email, username, password)
-        if(password === password2) {
+        if (password === password2) {
             let userToRegister = {
                 username,
                 password,
@@ -20,7 +20,12 @@ function Register() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(userToRegister)
-            })
+            }).then(response => {
+                if (response.status == 404) {
+                    alert('Emailadres niet correct')
+                }
+            }
+            )
             setEmail('');
             setUsername('');
             setPassword('');
