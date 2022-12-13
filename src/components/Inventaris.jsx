@@ -14,6 +14,7 @@ function Inventaris() {
   const [deleteModus, setDeleteModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
 
+
   function getAllBooks() {
     fetch("https://localhost:7211/api/Book").then(res => res.json()).then(data => setBookData(data))
   }
@@ -33,7 +34,7 @@ function Inventaris() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newBook)
-    })
+    }).then(setTimeout(() => getAllBooks(), 500))
     setAddModus(false)
   }
 
@@ -49,7 +50,7 @@ function Inventaris() {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }).then(setTimeout(() => getAllBooks(), 500))
     setTitle('');
     setDeleteId();
     setDeleteModus(false)
@@ -77,7 +78,7 @@ function Inventaris() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newBook)
-    })
+    }).then(setTimeout(() => getAllBooks(), 500))
     setTitle('');
     setAuthor('');
     setIsbn('');
@@ -99,7 +100,7 @@ function leaveScreen () {
 
   useEffect(() => {
     getAllBooks()
-  }, [bookData])
+     }, [])
 
   const listItemsTable =
     bookData &&

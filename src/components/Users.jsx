@@ -33,7 +33,7 @@ function Users() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newUser)
-    })
+    }).then(setTimeout(() => getAllUsers(), 500))
     setAddModus(false)
   }
 
@@ -49,7 +49,7 @@ function Users() {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }).then(setTimeout(() => getAllUsers(), 500))
     setfirstName('');
     setDeleteId();
     setDeleteModus(false)
@@ -77,7 +77,7 @@ function Users() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newUser)
-    })
+    }).then(setTimeout(() => getAllUsers(), 500))
     setfirstName('');
     setlastName('');
     setemail('');
@@ -99,7 +99,7 @@ function leaveScreen () {
 
   useEffect(() => {
     getAllUsers()
-  }, [userData])
+  }, [])
 
   const listItemsTable =
     userData &&
