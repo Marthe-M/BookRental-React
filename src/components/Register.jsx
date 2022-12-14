@@ -9,7 +9,7 @@ function Register() {
     const [password2, setPassword2] = useState('');
 
     function registerUser() {
-        if (password != password2) {
+        if (password !== password2) {
             alert('Wachtwoorden komen niet overeen')
         } else {
             let userToRegister = {
@@ -26,8 +26,11 @@ function Register() {
             }).then((response) => {
                 if (response.ok) {
                   return response.json();
-                }
-                throw new Error('Gegevens incorrect');
+                } else if(response.status === 400) {
+                    throw new Error('Username bestaat al');
+                } else {
+                    throw new Error('Emailadres incorrect');
+                }          
               })
               .then((result) => {
                 console.log(result)

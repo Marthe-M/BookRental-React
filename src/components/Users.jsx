@@ -37,9 +37,18 @@ function Users() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newUser)
-    }).then(setTimeout(() => getAllUsers(), 500))
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('User bestaat al');
+    }).then(setTimeout(() => getAllUsers(), 500)).catch((error) => {
+      alert(error)
+    });
     setAddModus(false)
   }
+
+  
 
   function showDeletePopUp(user) {
     setfirstName(user.firstName)
