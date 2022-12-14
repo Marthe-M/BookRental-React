@@ -13,6 +13,7 @@ function Users() {
   const [addModus, setAddModus] = useState(false)
   const [deleteModus, setDeleteModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
+  const [checked, setChecked] = useState(false);
 
   function getAllUsers() {
     fetch("https://localhost:7211/api/User").then(res => res.json()).then(data => setUserData(data))
@@ -22,20 +23,32 @@ function Users() {
     let newUser = {
       firstName,
       lastName,
-      email
+      email,
+      isAdmin: checked,
+      
     }
     setfirstName('');
     setlastName('');
     setemail('');
+    setChecked(false);
     fetch("https://localhost:7211/api/User/add", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newUser)
-    }).then(setTimeout(() => getAllUsers(), 500))
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('User bestaat al');
+    }).then(setTimeout(() => getAllUsers(), 500)).catch((error) => {
+      alert(error)
+    });
     setAddModus(false)
   }
+
+  
 
   function showDeletePopUp(user) {
     setfirstName(user.firstName)
@@ -95,6 +108,11 @@ function leaveScreen () {
   setUpdateModus(false)
   setAddModus(false)
 }
+
+const handleChange = () => {
+  setChecked(!checked);
+};
+
 
 
   useEffect(() => {
@@ -169,6 +187,14 @@ function leaveScreen () {
           <label>Email:</label><input type='text' value={email} onChange={(e) => {
             setemail(e.target.value);
           }} />
+          <label>Gebruiker aanmerken als Admin?
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={handleChange}
+        />
+       Ja
+      </label>
           <div>
           <button type="submit" className="basic-button">{updateModus ? 'Update User' : 'Add New User'}</button>
           <button className="basic-button" onClick={() => leaveScreen() }>Annuleren</button>

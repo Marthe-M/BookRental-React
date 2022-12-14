@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import Login from "./components/Login"
+import Register from "./components/Register"
 import Main from "./components/Main"
 import Header from "./components/Header"
 
@@ -9,7 +10,8 @@ function App() {
     <div className="app-container">
       <Header/>
       <Routes>
-        <Route path="/" element={ <Login/> } />
+        <Route path="/login" element={ <Login/> } />
+        <Route path="/register" element={ <Register/> } />
         <Route path="main" element={ <Main/> } />
       </Routes>
     </div>
