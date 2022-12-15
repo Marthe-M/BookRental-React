@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import PrivateRoutes from "./components/PrivateRoutes"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Main from "./components/Main"
@@ -10,10 +11,12 @@ function App() {
     <div className="app-container">
       <Header/>
       <Routes>
-        <Route path="/login" element={ <Login/> } />
-        <Route path="/register" element={ <Register/> } />
-        <Route path="main" element={ <Main/> } />
-      </Routes>
+          <Route element={<PrivateRoutes/>}>
+              <Route path='/main' element={<Main/>} />
+          </Route>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Routes>
     </div>
   )
 }
