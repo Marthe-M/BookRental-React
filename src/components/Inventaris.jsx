@@ -3,7 +3,7 @@ import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
 
-function Inventaris({type}) {
+function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -19,7 +19,7 @@ function Inventaris({type}) {
 
   function getReservations() {
     fetch(`https://localhost:7211/api/Reservation/${userId}`).then(res => res.json()).then(data =>
-      setBookData(data.map(reservation => ({...reservation.book, id: reservation.id})))
+      setReservationData(data.map(reservation => ({...reservation.book, id: reservation.id})))
     )
   }
 
@@ -36,7 +36,7 @@ function Inventaris({type}) {
            "approved": false
          }
        )
-     })
+     }).then(setTimeout(() => getReservations(), 500))
    }
 
    function deleteReservation(id) {
@@ -135,9 +135,11 @@ function leaveScreen () {
     type === "Reservations" ? getReservations() : getAllBooks()
   }, [])
 
+  const data = type === "Reservations" ? reservationData : bookData;
+
   const listItemsTable =
-    bookData &&
-    bookData
+    data &&
+    data
       .map(book => (
         <tr key={book.id} >
           <td>{book.title}</td>
