@@ -141,7 +141,7 @@ function leaveScreen () {
               <th>Voornaam</th>
               <th>Achternaam</th>
               <th>Email</th>
-              <th>Update</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
