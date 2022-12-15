@@ -9,8 +9,11 @@ function Register() {
     const [password2, setPassword2] = useState('');
 
     function registerUser() {
+        const passwordCheck = /^(?=.*?[0-9]).{6,}$/;
         if (password !== password2) {
             alert('Wachtwoorden komen niet overeen')
+        } else if (!password.match(passwordCheck)) {
+            alert("Wachtwoord moet meer dan 6 karakters hebben en één getal bevatten")
         } else {
             let userToRegister = {
                 username,
@@ -25,24 +28,24 @@ function Register() {
                 body: JSON.stringify(userToRegister)
             }).then((response) => {
                 if (response.ok) {
-                  return response.json();
-                } else if(response.status === 400) {
+                    return response.json();
+                } else if (response.status === 400) {
                     throw new Error('Username bestaat al');
                 } else {
                     throw new Error('Emailadres incorrect');
-                }          
-              })
-              .then((result) => {
-                console.log(result)
-                setUsername('');
-                setPassword('');
-                setPassword2('');
-                navigate('/login');
-              })
-              .catch((error) => {
-                alert(error)
-              });
-            }
+                }
+            })
+                .then((result) => {
+                    console.log(result)
+                    setUsername('');
+                    setPassword('');
+                    setPassword2('');
+                    navigate('/login');
+                })
+                .catch((error) => {
+                    alert(error)
+                });
+        }
     }
 
     return (
