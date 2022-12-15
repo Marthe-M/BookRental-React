@@ -37,7 +37,7 @@ function Register() {
                 setUsername('');
                 setPassword('');
                 setPassword2('');
-                navigate('/main');
+                navigate('/login');
               })
               .catch((error) => {
                 alert(error)

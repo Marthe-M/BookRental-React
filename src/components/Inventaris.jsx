@@ -16,10 +16,17 @@ function Inventaris() {
 
 
   function getAllBooks() {
-    fetch("https://localhost:7211/api/Book").then(res => res.json()).then(data => setBookData(data))
+    const token = localStorage.getItem("token")
+    fetch("https://localhost:7211/api/Book", {
+      method: 'get',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+      }}).then(res => res.json()).then(data => setBookData(data))
   }
 
   function addBook() {
+    const token = localStorage.getItem("token")
     let newBook = {
       title,
       author,
@@ -31,7 +38,8 @@ function Inventaris() {
     fetch("https://localhost:7211/api/Book/add", {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       },
       body: JSON.stringify(newBook)
     }).then(setTimeout(() => getAllBooks(), 500))
@@ -45,10 +53,12 @@ function Inventaris() {
   }
 
   function deleteBook(id) {
+    const token = localStorage.getItem("token")
     fetch(`https://localhost:7211/api/Book/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       }
     }).then(setTimeout(() => getAllBooks(), 500))
     setTitle('');
@@ -67,6 +77,7 @@ function Inventaris() {
   }
 
   function sendBookUpdate() {
+    const token = localStorage.getItem("token")
       let newBook = {
       id: updatedId,
       title,
@@ -76,7 +87,8 @@ function Inventaris() {
     fetch(`https://localhost:7211/api/Book/${newBook.id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       },
       body: JSON.stringify(newBook)
     }).then(setTimeout(() => getAllBooks(), 500))
@@ -111,10 +123,11 @@ function leaveScreen () {
           <td>{book.title}</td>
           <td>{book.author}</td>
           <td>{book.isbn}</td>
+          {(localStorage.getItem('role') === 'admin') ?
           <td className="table-buttons">
             <span onClick={() => updateBook(book)}><BsPencilFill className="icon" /></span>
             <span onClick={() => showDeletePopUp(book)}><BsTrashFill className="icon" /></span>
-          </td>
+          </td> : null}
         </tr>
       ))
 
@@ -135,7 +148,8 @@ function leaveScreen () {
               defaultChecked={true}
             />
           </label></div>
-          <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3>
+          {(localStorage.getItem('role') === 'admin') ?
+          <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3> : null }
         </div>
         <table className="inventaris-table">
           <thead>
@@ -143,7 +157,7 @@ function leaveScreen () {
               <th>Title</th>
               <th>Author</th>
               <th>Isbn</th>
-              <th>Update</th>
+              {(localStorage.getItem('role') === 'admin') ?<th>Update</th> : null }
             </tr>
           </thead>
           <tbody>

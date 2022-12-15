@@ -22,6 +22,7 @@ body {
 .header {
    height: 100px;
 }
+
 .header-img {
   width: 100px;
   padding: 20px;
@@ -87,6 +88,18 @@ input[type=text]:focus {
  text-align: center;
 }
 
+.login-button.logout {
+font-size: 14px;
+padding: 8px 16px;
+position:absolute;
+top:90px;
+right:30px;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
 
 
 .login-button a:visited, .login-button a:link {
