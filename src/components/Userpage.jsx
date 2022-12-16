@@ -5,7 +5,7 @@ function Userpage() {
   const [reservationData, setReservationData] = useState([]);
 
   return (
-    <div>
+    <div className="userpage-container">
       <Inventaris type={"UserInventory"} setReservationData={setReservationData}/>
       <Inventaris type={"Reservations"} reservationData={reservationData} setReservationData={setReservationData}/>
     </div>

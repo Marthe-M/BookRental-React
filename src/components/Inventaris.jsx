@@ -152,9 +152,9 @@ function leaveScreen () {
               <span onClick={() => showDeletePopUp(book)}><BsTrashFill className="icon" /></span>
             </>
             : type === "UserInventory" ?
-            <button onClick={() => addReservation(book.id)}> Aanvragen </button>
+            <button className="request-button" onClick={() => addReservation(book.id)}> Aanvragen </button>
             : type === "Reservations" ?
-            <button onClick={() => deleteReservation(book.id)}> Annuleren </button>
+            <button className="request-button" onClick={() => deleteReservation(book.id)}> Annuleren </button>
             : null
             }
           </td>
