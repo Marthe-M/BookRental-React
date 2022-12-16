@@ -34,6 +34,9 @@ body {
   display: flex;
 }
 
+.userpage-container {
+  display: flex;
+}
 
 input[type=text], input[type=password]  {
   border: none;
@@ -220,3 +223,20 @@ select {
  .inventaris-add-container button {
   font-size: 20px;
  }
+
+ .request-button {
+   background-color: #03AB03;
+   border: none;
+   color: white;
+   padding: 8px 15px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 15px;
+   font-weight: bold;
+   transition-duration: 0.4s;
+ }
+
+.request-button:hover {
+  background-color: #00E600;
+}

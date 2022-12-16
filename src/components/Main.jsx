@@ -5,7 +5,7 @@ import Users from './Users'
 function Main() {
   return (
     <div className="main-container">
-      <Inventaris />
+      <Inventaris type={"AdminInventory"}/>
       <Users />
     </div>
   )
