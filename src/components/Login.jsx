@@ -25,18 +25,20 @@ function Login() {
             throw new Error('Gegevens incorrect');
         })
             .then((result) => {
-                console.log("JWT Token: ", result)
                 localStorage.setItem('token', result);
                 const decodedToken = jwt_decode(result)
                 const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
                 if(role === "True") {
                     localStorage.setItem('role', 'admin');
+                    setUsername('');
+                    setPassword('');
+                    navigate('/adminpage');
                 } else {
                     localStorage.setItem('role', 'user');
+                    setUsername('');
+                    setPassword('');
+                    navigate('/userpage');
                 }
-                setUsername('');
-                setPassword('');
-                navigate('/main');
             })
             .catch((error) => {
                 alert(error)

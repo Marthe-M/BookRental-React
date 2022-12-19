@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
+import jwt_decode from "jwt-decode";
 
 function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
@@ -14,12 +15,15 @@ function Inventaris({type, reservationData, setReservationData}) {
   const [deleteModus, setDeleteModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
 
-  // Tijdelijke hardcode
-  const userId = "E6057B68-B9AF-4228-BD10-D8266A4EAD9C"
+// Tijdelijke hardcode horend by username test2 password test2
+//   const userId = "1b51abcb-c96a-41bc-93e3-81bab3f8dbf3" 
 
+  const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
+ 
   function getReservations() {
-    fetch(`https://localhost:7211/api/Reservation/${userId}`).then(res => res.json()).then(data =>
+    fetch(`https://localhost:7211/api/Reservation/${userIdFromToken}`).then(res => res.json()).then(data =>
       setReservationData(data.map(reservation => ({...reservation.book, id: reservation.id})))
+      
     )
   }
 
@@ -31,7 +35,7 @@ function Inventaris({type, reservationData, setReservationData}) {
        },
        body: JSON.stringify(
          {
-           "userId": userId,
+           "userId": userIdFromToken,
            "bookId": bookId,
            "approved": false
          }
