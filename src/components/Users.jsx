@@ -16,10 +16,17 @@ function Users() {
   const [checked, setChecked] = useState(false);
 
   function getAllUsers() {
-    fetch("https://localhost:7211/api/User").then(res => res.json()).then(data => setUserData(data))
+    const token = localStorage.getItem("token")
+    fetch("https://localhost:7211/api/User", {
+      method: 'get',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+      }} ).then(res => res.json()).then(data => setUserData(data))
   }
 
   function addUser() {
+    const token = localStorage.getItem("token")
     let newUser = {
       firstName,
       lastName,
@@ -34,7 +41,8 @@ function Users() {
     fetch("https://localhost:7211/api/User/add", {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       },
       body: JSON.stringify(newUser)
     }).then((response) => {
@@ -57,10 +65,12 @@ function Users() {
   }
 
   function deleteUser(id) {
+    const token = localStorage.getItem("token")
     fetch(`https://localhost:7211/api/User/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       }
     }).then(setTimeout(() => getAllUsers(), 500))
     setfirstName('');
@@ -78,6 +88,7 @@ function Users() {
   }
 
   function sendUserUpdate() {
+    const token = localStorage.getItem("token")
     let newUser = {
       id: updatedId,
       firstName,
@@ -87,7 +98,8 @@ function Users() {
     fetch(`https://localhost:7211/api/User/${newUser.id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       },
       body: JSON.stringify(newUser)
     }).then(setTimeout(() => getAllUsers(), 500))

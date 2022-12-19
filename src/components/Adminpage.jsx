@@ -2,7 +2,8 @@ import React from 'react'
 import Inventaris from './Inventaris'
 import Users from './Users'
 
-function Main() {
+function Adminpage() {
+
   return (
     <div className="main-container">
       <Inventaris type={"AdminInventory"}/>
@@ -11,4 +12,4 @@ function Main() {
   )
 }
 
-export default Main
+export default Adminpage
