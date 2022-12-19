@@ -3,6 +3,7 @@ import PrivateRoutes from "./components/PrivateRoutes"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Main from "./components/Main"
+import Userpage from "./components/Userpage"
 import Header from "./components/Header"
 
 
@@ -13,10 +14,12 @@ function App() {
       <Routes>
           <Route element={<PrivateRoutes/>}>
               <Route path='/main' element={<Main/>} />
+              <Route path="/userpage" element={ <Userpage/> } />
           </Route>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
         </Routes>
+
     </div>
   )
 }

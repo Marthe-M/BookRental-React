@@ -3,7 +3,7 @@ import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
 
-function Inventaris() {
+function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -14,6 +14,39 @@ function Inventaris() {
   const [deleteModus, setDeleteModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
 
+  // Tijdelijke hardcode
+  const userId = "E6057B68-B9AF-4228-BD10-D8266A4EAD9C"
+
+  function getReservations() {
+    fetch(`https://localhost:7211/api/Reservation/${userId}`).then(res => res.json()).then(data =>
+      setReservationData(data.map(reservation => ({...reservation.book, id: reservation.id})))
+    )
+  }
+
+  function addReservation(bookId) {
+     fetch("https://localhost:7211/api/Reservation/add", {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(
+         {
+           "userId": userId,
+           "bookId": bookId,
+           "approved": false
+         }
+       )
+     }).then(setTimeout(() => getReservations(), 500))
+   }
+
+   function deleteReservation(id) {
+      fetch(`https://localhost:7211/api/Reservation/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(setTimeout(() => getReservations(), 500))
+    }
 
   function getAllBooks() {
     const token = localStorage.getItem("token")
@@ -112,22 +145,33 @@ function leaveScreen () {
 
 
   useEffect(() => {
-    getAllBooks()
-     }, [])
+    type === "Reservations" ? getReservations() : getAllBooks()
+  }, [])
+
+  const data = type === "Reservations" ? reservationData : bookData;
 
   const listItemsTable =
-    bookData &&
-    bookData
+    data &&
+    data
       .map(book => (
         <tr key={book.id} >
           <td>{book.title}</td>
           <td>{book.author}</td>
           <td>{book.isbn}</td>
-          {(localStorage.getItem('role') === 'admin') ?
+        
           <td className="table-buttons">
-            <span onClick={() => updateBook(book)}><BsPencilFill className="icon" /></span>
-            <span onClick={() => showDeletePopUp(book)}><BsTrashFill className="icon" /></span>
-          </td> : null}
+            {type === "AdminInventory" ?
+            <>
+              <span onClick={() => updateBook(book)}><BsPencilFill className="icon" /></span>
+              <span onClick={() => showDeletePopUp(book)}><BsTrashFill className="icon" /></span>
+            </>
+            : type === "UserInventory" ?
+            <button className="request-button" onClick={() => addReservation(book.id)}> Aanvragen </button>
+            : type === "Reservations" ?
+            <button className="request-button" onClick={() => deleteReservation(book.id)}> Annuleren </button>
+            : null
+            }
+          </td>
         </tr>
       ))
 
@@ -135,11 +179,18 @@ function leaveScreen () {
     <div className="inventaris-container">
       <div>
         <div className="inventaris-header">
-          <h4>BEKIJK INVENTARIS</h4>
-          <h2>Boeken</h2>
+          {type === "Reservations" ?
+          <><h4>BEKIJK OVERZICHT</h4>
+          <h2>Aanvragen</h2></>
+          : <><h4>BEKIJK INVENTARIS</h4>
+          <h2>Boeken</h2></>
+          }
+
         </div>
         <div className="inventaris-searchbar">
           <input type='text' placeholder="Zoek..." />
+          {type === "AdminInventory" ?
+          <>
           <div><label>
             Beschikbaar:
             <input
@@ -148,8 +199,8 @@ function leaveScreen () {
               defaultChecked={true}
             />
           </label></div>
-          {(localStorage.getItem('role') === 'admin') ?
-          <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3> : null }
+          <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3>
+          </> : null}
         </div>
         <table className="inventaris-table">
           <thead>
@@ -157,7 +208,7 @@ function leaveScreen () {
               <th>Title</th>
               <th>Author</th>
               <th>Isbn</th>
-              {(localStorage.getItem('role') === 'admin') ?<th>Update</th> : null }
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -186,7 +237,7 @@ function leaveScreen () {
           }} />
           <div>       <button type="submit" className="basic-button">{updateModus ? 'Update Book' : 'Add New Book'}</button>
           <button className="basic-button" onClick={() => leaveScreen() }>Annuleren</button></div>
-   
+
         </form>
 
       </div> : null}

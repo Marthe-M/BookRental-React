@@ -6,15 +6,8 @@ function Main() {
 
   return (
     <div className="main-container">
-      {(localStorage.getItem('role') === 'admin') ?
-        <div>
-          <Inventaris />
-          <Users />
-        </div>
-        : <div>
-          <Inventaris />
-        </div>}
-
+      <Inventaris type={"AdminInventory"}/>
+      <Users />
     </div>
   )
 }
