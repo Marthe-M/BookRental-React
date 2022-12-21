@@ -31,10 +31,6 @@ body {
   right:0;
 }
 
-.main-container {
-  display: flex;
-}
-
 .userpage-container {
   display: flex;
 }
