@@ -17,7 +17,6 @@ function Reservations() {
 
 
   function addLoan(reservation) {
-    console.log(reservation)
     const token = localStorage.getItem("token")
     fetch("https://localhost:7211/api/Loan/add", {
       method: 'POST',
@@ -31,17 +30,21 @@ function Reservations() {
           "bookId": reservation.book.id
         }
       )
-    }).then(setTimeout(() => getAllReservations(), 500))
+    }).then(setTimeout(() => deleteReservation(reservation.id), 500))
+      .then(setTimeout(() => getAllReservations(), 500))
   }
 
   function deleteReservation(id) {
+    const token = localStorage.getItem("token")
     fetch(`https://localhost:7211/api/Reservation/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
       }
     }).then(setTimeout(() => getAllReservations(), 500))
   }
+
 
 
   useEffect(() => {
@@ -57,8 +60,8 @@ function Reservations() {
           <td>{reservation.book.author}</td>
           <td>{reservation.user.firstName + " "} {reservation.user.lastName}</td>
           <td className="table-buttons">
-          <button className="request-button" onClick={() => addLoan(reservation)}> Accepteren </button>
-         <button className="request-button" onClick={() => deleteReservation(reservation.id)}> Annuleren </button>
+            <button className="request-button" onClick={() => addLoan(reservation)}> Accepteren </button>
+            <button className="request-button" onClick={() => deleteReservation(reservation.id)}> Annuleren </button>
           </td>
         </tr>
       ))

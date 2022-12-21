@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Inventaris from './Inventaris'
+import Loans from './Loans'
 
 function Userpage() {
   const [reservationData, setReservationData] = useState([]);
@@ -8,6 +9,7 @@ function Userpage() {
     <div className="userpage-container">
       <Inventaris type={"UserInventory"} setReservationData={setReservationData}/>
       <Inventaris type={"Reservations"} reservationData={reservationData} setReservationData={setReservationData}/>
+      {/* <Loans type={"UserLoans"}/> */}
     </div>
   )
 }
