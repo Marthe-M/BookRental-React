@@ -21,17 +21,25 @@ function Inventaris({type, reservationData, setReservationData}) {
   const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
  
   function getReservations() {
-    fetch(`https://localhost:7211/api/Reservation/${userIdFromToken}`).then(res => res.json()).then(data =>
+    const token = localStorage.getItem("token")
+    fetch(`https://localhost:7211/api/Reservation/${userIdFromToken}`, {
+      method: 'get',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+      }}).then(res => res.json()).then(data =>
       setReservationData(data.map(reservation => ({...reservation.book, id: reservation.id})))
       
     )
   }
 
   function addReservation(bookId) {
+    const token = localStorage.getItem("token")
      fetch("https://localhost:7211/api/Reservation/add", {
        method: 'POST',
        headers: {
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/json',
+         'Authorization': `bearer ${token}`
        },
        body: JSON.stringify(
          {
@@ -44,10 +52,12 @@ function Inventaris({type, reservationData, setReservationData}) {
    }
 
    function deleteReservation(id) {
+    const token = localStorage.getItem("token")
       fetch(`https://localhost:7211/api/Reservation/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
         }
       }).then(setTimeout(() => getReservations(), 500))
     }
@@ -67,7 +77,7 @@ function Inventaris({type, reservationData, setReservationData}) {
     let newBook = {
       title,
       author,
-      isbn,
+      isbn
     }
     setTitle('');
     setAuthor('');
@@ -191,10 +201,9 @@ function leaveScreen () {
           }
 
         </div>
-        <div className="inventaris-searchbar">
+       {type == "Reservations" ? null : <div className="inventaris-searchbar">
           <input type='text' placeholder="Zoek..." />
-          {type === "AdminInventory" ?
-          <>
+     
           <div><label>
             Beschikbaar:
             <input
@@ -203,9 +212,10 @@ function leaveScreen () {
               defaultChecked={true}
             />
           </label></div>
+          {type === "AdminInventory" ?
           <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3>
-          </> : null}
-        </div>
+         : null}
+        </div>} 
         <table className="inventaris-table">
           <thead>
             <tr>
