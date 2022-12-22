@@ -201,10 +201,9 @@ function leaveScreen () {
           }
 
         </div>
-        <div className="inventaris-searchbar">
+       {type == "Reservations" ? null : <div className="inventaris-searchbar">
           <input type='text' placeholder="Zoek..." />
-          {type === "AdminInventory" ?
-          <>
+     
           <div><label>
             Beschikbaar:
             <input
@@ -213,9 +212,10 @@ function leaveScreen () {
               defaultChecked={true}
             />
           </label></div>
+          {type === "AdminInventory" ?
           <h3>Voeg nieuw boek toe<MdLibraryAdd className="icon" onClick={() => setAddModus(true)} />  </h3>
-          </> : null}
-        </div>
+         : null}
+        </div>} 
         <table className="inventaris-table">
           <thead>
             <tr>

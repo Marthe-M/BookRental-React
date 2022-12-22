@@ -14,8 +14,6 @@ function Reservations() {
     }).then(res => res.json()).then(data => setReservationData(data))
   }
 
-
-
   function addLoan(reservation) {
     const token = localStorage.getItem("token")
     fetch("https://localhost:7211/api/Loan/add", {
@@ -31,7 +29,7 @@ function Reservations() {
         }
       )
     }).then(setTimeout(() => deleteReservation(reservation.id), 500))
-      .then(setTimeout(() => getAllReservations(), 500))
+      .then(setTimeout(() => window.location.reload(), 500))
   }
 
   function deleteReservation(id) {

@@ -17,18 +17,43 @@
 body {
   font-family: euclid;
   background-color: #E4E4E7;
+  margin: 0;
+  padding: 0;
 }
 
-.header {
-   height: 100px;
-}
 
 .header-img {
-  width: 100px;
-  padding: 20px;
+  width: 60px;
+  padding: 10px;
   position:absolute;
-  top:0;
+  top:50px;
   right:0;
+}
+
+.navbar {
+  margin-bottom: 50px;
+ margin-top: 0;
+ background-color: black;
+ display: flex;
+ justify-content: space-between;
+}
+
+.navbar button {
+  padding: 15px 50px;
+  background-color: black;
+  font-size: 18px;
+  font-family: euclid-semibold;
+}
+
+.navbar button:hover {
+  padding: 15px 50px;
+  background-color:  #03AB03;;
+  font-size: 18px;
+  font-family: euclid-semibold;
+}
+
+.my-spacer {
+  flex: 1 1 auto;
 }
 
 .main-container {

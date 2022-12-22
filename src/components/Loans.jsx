@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 
-function Loans({type}) {
+function Loans({ type }) {
   const [loanData, setLoanData] = useState([]);
+  const [loanDataById, setLoanDataById] = useState([]);
 
   function getAllLoans() {
     const token = localStorage.getItem("token")
@@ -15,41 +16,59 @@ function Loans({type}) {
     }).then(res => res.json()).then(data => setLoanData(data))
   }
 
-function completeLoan(id) {
-      console.log(id)
-}
-
-/*  
-function getLoansById() {
-  const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
-  const token = localStorage.getItem("token")
-  fetch(`https://localhost:7211/api/Loan/${userIdFromToken}`, {
-    method: 'get',
-    headers: {
+  function completeLoan(loan) {
+    console.log(loan.id)
+    const token = localStorage.getItem("token")
+    fetch(`https://localhost:7211/api/Loan/${loan.id}`, {
+      method: 'PUT',
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': `bearer ${token}`
-    }}).then(res => res.json()).then(data =>
-      setLoanData(data.map(loan => ({...loan.book, id: loan.id})))
-    
-  )
-} */
+      },
+      body: JSON.stringify(
+        {
+          "userId": loan.user.id,
+          "bookId": loan.book.id,
+          "isAvailable": true
+        }
+      )
+    }).then(setTimeout(() => getAllLoans(), 500))
+  }
 
-useEffect(() => {
- getAllLoans() 
-}, [])
 
+  function getLoansById() {
+    const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
+    const token = localStorage.getItem("token")
+    fetch(`https://localhost:7211/api/Loan/${userIdFromToken}`, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
+      }
+    }).then(res => res.json()).then(data =>
+      setLoanDataById(data))
+  }
+
+
+  useEffect(() => {
+    type === "UserLoans" ? getLoansById() : getAllLoans()
+  }, [])
+
+
+  const data = type === "UserLoans" ? loanDataById : loanData;
 
   const listItemsTable =
-    loanData &&
-    loanData
+    data &&
+    data
+      .filter(loan => loan.returnDate < loan.startDate)
       .map(loan => (
         <tr key={loan.id}>
           <td>{loan.book.title}</td>
           <td>{loan.book.author}</td>
-          <td>{loan.user.firstName + " "} {loan.user.lastName}</td>
+          {type == "UserLoans" ? <td></td> : <td>{loan.user.firstName + " "} {loan.user.lastName}</td>}
           <td>{loan.startDate.split('T').shift()}</td>
           <td className="table-buttons">
-              <button className="request-button" onClick={() => completeLoan(loan.id)}> Aanmerken als voltooid </button>
+            {type == "UserLoans" ? null : <button className="request-button" onClick={() => completeLoan(loan)}> Aanmerken als voltooid </button>}
           </td>
         </tr>
       ))
@@ -59,14 +78,14 @@ useEffect(() => {
       <div>
         <div className="inventaris-header">
           <h4>BEKIJK OVERZICHT</h4>
-          <h2>Uitgeleende boeken</h2>
+          {type == "UserLoans" ? <h2>Geleende boeken</h2> : <h2>Uitgeleende boeken</h2>}
         </div>
         <table className="inventaris-table">
           <thead>
             <tr>
               <th>Titel</th>
               <th>Auteur</th>
-              <th>Geleend door:</th>
+              {type == "UserLoans" ? <th></th> : <th>Geleend door:</th>}
               <th>Geleend op:</th>
               <th></th>
             </tr>
