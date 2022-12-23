@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
-import { MdLibraryAdd } from "react-icons/md";
+import { MdLibraryAdd, MdMail } from "react-icons/md";
 
 function Users() {
   const [userData, setUserData] = useState([]);
@@ -20,9 +20,10 @@ function Users() {
     fetch("https://localhost:7211/api/User", {
       method: 'get',
       headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `bearer ${token}`
-      }} ).then(res => res.json()).then(data => setUserData(data))
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
+      }
+    }).then(res => res.json()).then(data => setUserData(data))
   }
 
   function addUser() {
@@ -32,7 +33,7 @@ function Users() {
       lastName,
       email,
       isAdmin: checked,
-      
+
     }
     setfirstName('');
     setlastName('');
@@ -54,9 +55,19 @@ function Users() {
       alert(error)
     });
     setAddModus(false)
+    sendEmail(newUser.email)
   }
 
-  
+  function sendEmail(email) {
+    fetch("https://localhost:7211/api/Email", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email})
+    })
+  }
+
 
   function showDeletePopUp(user) {
     setfirstName(user.firstName)
@@ -111,19 +122,19 @@ function Users() {
     setAddModus(false)
   }
 
-function leaveScreen () {
-  setfirstName('');
+  function leaveScreen() {
+    setfirstName('');
     setlastName('');
     setemail('');
     setUpdatedId();
     setDeleteId();
-  setUpdateModus(false)
-  setAddModus(false)
-}
+    setUpdateModus(false)
+    setAddModus(false)
+  }
 
-const handleChange = () => {
-  setChecked(!checked);
-};
+  const handleChange = () => {
+    setChecked(!checked);
+  };
 
 
 
@@ -142,6 +153,7 @@ const handleChange = () => {
           <td className="table-buttons">
             <span onClick={() => updateUser(user)}><BsPencilFill className="icon red" /></span>
             <span onClick={() => showDeletePopUp(user)}><BsTrashFill className="icon red" /></span>
+            <span onClick={() => sendEmail(user.email)}><MdMail className="icon red" /></span>
           </td>
         </tr>
       ))
@@ -200,23 +212,23 @@ const handleChange = () => {
             setemail(e.target.value);
           }} />
           <label>Gebruiker aanmerken als Admin?
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={handleChange}
-        />
-       Ja
-      </label>
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleChange}
+            />
+            Ja
+          </label>
           <div>
-          <button type="submit" className="basic-button">{updateModus ? 'Update User' : 'Add New User'}</button>
-          <button className="basic-button" onClick={() => leaveScreen() }>Annuleren</button>
+            <button type="submit" className="basic-button">{updateModus ? 'Update User' : 'Add New User'}</button>
+            <button className="basic-button" onClick={() => leaveScreen()}>Annuleren</button>
           </div>
         </form>
 
       </div> : null}
       {deleteModus ? <div className="inventaris-add-container"><h2>Weet je zeker dat je {firstName} uit het systeem wil halen?</h2>
-      <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder user</button>
-      <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
+        <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder user</button>
+          <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
     </div>
   )
 }

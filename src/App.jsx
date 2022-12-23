@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import PrivateRoutes from "./components/PrivateRoutes"
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Adminpage from "./components/Adminpage"
@@ -10,16 +11,19 @@ import Header from "./components/Header"
 function App() {
   return (
     <div className="app-container">
-      <Header/>
+      <Header />
       <Routes>
-          <Route element={<PrivateRoutes/>}>
-              <Route path='/adminpage' element={<Adminpage/>} />
-              <Route path="/userpage" element={ <Userpage/> } />
-          </Route>
-          <Route exact path='/' element={<Login/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/register' element={<Register/>}/>
-        </Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/userpage" element={<Userpage />} />
+        </Route>
+        <Route element={<PrivateRouteAdmin />}>
+          <Route path='/adminpage' element={<Adminpage />} />
+          <Route path="/userpage" element={<Userpage />} />
+        </Route>
+        <Route exact path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
 
     </div>
   )

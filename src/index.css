@@ -226,10 +226,12 @@ select {
 .icon {
   font-size: 20px;
   color: #03AB03;
+  margin-left: 10px;
 }
 
 .icon.red {
   color: darkred;
+  
 }
 
 .icon:hover {
