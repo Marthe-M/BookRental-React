@@ -6,6 +6,8 @@ import jwt_decode from "jwt-decode";
 
 function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
+  const [query, setQuery] = useState('');
+  const [checked, setChecked] = useState(true);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [isbn, setIsbn] = useState('');
@@ -157,12 +159,26 @@ function leaveScreen () {
   setAddModus(false)
 }
 
+function filter(data) {
+  return data.filter((item) => {
+    return (item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1)
+        && (!checked || item.isAvailable);
+  })
+}
+
+function search(event) {
+  setQuery(event.target.value.toLowerCase())
+}
+
+function checkbox(event) {
+  setChecked(event.target.checked)
+}
 
   useEffect(() => {
     type === "Reservations" ? getReservations() : getAllBooks()
   }, [])
 
-  const data = type === "Reservations" ? reservationData : bookData;
+  const data = type === "Reservations" ? reservationData : filter(bookData);
 
   const listItemsTable =
     data &&
@@ -201,8 +217,8 @@ function leaveScreen () {
           }
 
         </div>
-       {type == "Reservations" ? null : <div className="inventaris-searchbar">
-          <input type='text' placeholder="Zoek..." />
+       {type === "Reservations" ? null : <div className="inventaris-searchbar">
+          <input type='text' placeholder="Zoek..." onChange={search} />
      
           <div><label>
             Beschikbaar:
@@ -210,6 +226,7 @@ function leaveScreen () {
               name="isAvailable"
               type="checkbox"
               defaultChecked={true}
+              onChange={checkbox}
             />
           </label></div>
           {type === "AdminInventory" ?
