@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 
 function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [isbn, setIsbn] = useState('');
@@ -69,7 +70,7 @@ function Inventaris({type, reservationData, setReservationData}) {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `bearer ${token}`
-      }}).then(res => res.json()).then(data => setBookData(data))
+      }}).then(res => res.json()).then(data => {setBookData(data); setFilteredData(data)})
   }
 
   function addBook() {
@@ -157,12 +158,20 @@ function leaveScreen () {
   setAddModus(false)
 }
 
+function filter(event) {
+  const query = event.target.value.toLowerCase()
+  var filtered = [...bookData]
+  filtered = filtered.filter((item) => {
+    return item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1;
+  })
+  setFilteredData(filtered);
+}
 
   useEffect(() => {
     type === "Reservations" ? getReservations() : getAllBooks()
   }, [])
 
-  const data = type === "Reservations" ? reservationData : bookData;
+  const data = type === "Reservations" ? reservationData : filteredData;
 
   const listItemsTable =
     data &&
@@ -201,8 +210,8 @@ function leaveScreen () {
           }
 
         </div>
-       {type == "Reservations" ? null : <div className="inventaris-searchbar">
-          <input type='text' placeholder="Zoek..." />
+       {type === "Reservations" ? null : <div className="inventaris-searchbar">
+          <input type='text' placeholder="Zoek..." onChange={filter} />
      
           <div><label>
             Beschikbaar:
