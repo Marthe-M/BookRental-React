@@ -6,7 +6,8 @@ import jwt_decode from "jwt-decode";
 
 function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [query, setQuery] = useState('');
+  const [checked, setChecked] = useState(true);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [isbn, setIsbn] = useState('');
@@ -70,7 +71,7 @@ function Inventaris({type, reservationData, setReservationData}) {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `bearer ${token}`
-      }}).then(res => res.json()).then(data => {setBookData(data); setFilteredData(data)})
+      }}).then(res => res.json()).then(data => setBookData(data))
   }
 
   function addBook() {
@@ -158,20 +159,26 @@ function leaveScreen () {
   setAddModus(false)
 }
 
-function filter(event) {
-  const query = event.target.value.toLowerCase()
-  var filtered = [...bookData]
-  filtered = filtered.filter((item) => {
-    return item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1;
+function filter(data) {
+  return data.filter((item) => {
+    return (item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1)
+        && (!checked || item.isAvailable);
   })
-  setFilteredData(filtered);
+}
+
+function search(event) {
+  setQuery(event.target.value.toLowerCase())
+}
+
+function checkbox(event) {
+  setChecked(event.target.checked)
 }
 
   useEffect(() => {
     type === "Reservations" ? getReservations() : getAllBooks()
   }, [])
 
-  const data = type === "Reservations" ? reservationData : filteredData;
+  const data = type === "Reservations" ? reservationData : filter(bookData);
 
   const listItemsTable =
     data &&
@@ -211,7 +218,7 @@ function filter(event) {
 
         </div>
        {type === "Reservations" ? null : <div className="inventaris-searchbar">
-          <input type='text' placeholder="Zoek..." onChange={filter} />
+          <input type='text' placeholder="Zoek..." onChange={search} />
      
           <div><label>
             Beschikbaar:
@@ -219,6 +226,7 @@ function filter(event) {
               name="isAvailable"
               type="checkbox"
               defaultChecked={true}
+              onChange={checkbox}
             />
           </label></div>
           {type === "AdminInventory" ?
