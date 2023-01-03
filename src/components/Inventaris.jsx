@@ -15,6 +15,7 @@ function Inventaris({type, reservationData, setReservationData}) {
   const [updatedId, setUpdatedId] = useState()
   const [addModus, setAddModus] = useState(false)
   const [deleteModus, setDeleteModus] = useState(false)
+  const [confirmationModus, setConfirmationModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
 
 // Tijdelijke hardcode horend by username test2 password test2
@@ -50,7 +51,7 @@ function Inventaris({type, reservationData, setReservationData}) {
            "approved": false
          }
        )
-     }).then(setTimeout(() => getReservations(), 500))
+     }).then(setTimeout(() => {getReservations(); setConfirmationModus(true)}, 500))
    }
 
    function deleteReservation(id) {
@@ -211,7 +212,7 @@ function checkbox(event) {
         <div className="inventaris-header">
           {type === "Reservations" ?
           <><h4>BEKIJK OVERZICHT</h4>
-          <h2>Aanvragen</h2></>
+          <h2>Reserveringen</h2></>
           : <><h4>BEKIJK INVENTARIS</h4>
           <h2>Boeken</h2></>
           }
@@ -275,6 +276,8 @@ function checkbox(event) {
       {deleteModus ? <div className="inventaris-add-container"><h2>Weet je zeker dat je {title} uit het systeem wil halen?</h2>
       <div><button type="submit" className="basic-button" onClick={() => deleteBook(deleteId)}>Verwijder boek</button>
       <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
+      {confirmationModus ? <div className="inventaris-add-container"><h2>Boek succesvol aangevraagd!</h2>
+      <div> <button className="basic-button" onClick={() => setConfirmationModus(false)}>Ok</button> </div></div> : null}
     </div>
   )
 }
