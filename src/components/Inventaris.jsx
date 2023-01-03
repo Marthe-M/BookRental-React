@@ -21,9 +21,6 @@ function Inventaris({type, reservationData, setReservationData}) {
   const [confirmationModus, setConfirmationModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
 
-// Tijdelijke hardcode horend by username test2 password test2
-//   const userId = "1b51abcb-c96a-41bc-93e3-81bab3f8dbf3" 
-
   const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
  
   function getReservations() {

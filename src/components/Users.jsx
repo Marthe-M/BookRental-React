@@ -14,6 +14,7 @@ function Users() {
   const [deleteModus, setDeleteModus] = useState(false)
   const [deleteId, setDeleteId] = useState()
   const [checked, setChecked] = useState(false);
+  const [message, setMessage] = useState('');
 
   function getAllUsers() {
     const token = localStorage.getItem("token")
@@ -50,10 +51,8 @@ function Users() {
       if (response.ok) {
         return response.json();
       }
-      throw new Error('User bestaat al');
-    }).then(setTimeout(() => getAllUsers(), 500)).catch((error) => {
-      alert(error)
-    });
+      setMessage('Gebruiker bestaat al.');
+    }).then(setTimeout(() => getAllUsers(), 500))
     setAddModus(false)
     sendEmail(newUser.email)
   }
@@ -67,7 +66,7 @@ function Users() {
       body: JSON.stringify({email})
     }).then((response) => {
       if (response.ok) {
-       alert('Nieuwe user aangemaakt en email voor registratie verstuurd.')
+       setMessage('Nieuwe gebruiker aangemaakt en email voor registratie verstuurd.')
       }
   
     })
@@ -233,6 +232,8 @@ function Users() {
       {deleteModus ? <div className="inventaris-add-container"><h2>Weet je zeker dat je {firstName} uit het systeem wil halen?</h2>
         <div><button type="submit" className="basic-button" onClick={() => deleteUser(deleteId)}>Verwijder user</button>
           <button className="basic-button" onClick={() => setDeleteModus(false)}>Annuleren</button> </div></div> : null}
+      {message ? <div className="inventaris-add-container"><h2>{message}</h2>
+      <div> <button className="basic-button" onClick={() => setMessage('')}>Ok</button> </div></div> : null}
     </div>
   )
 }
