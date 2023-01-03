@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
-import { MdLibraryAdd, MdMail } from "react-icons/md";
+import { MdLibraryAdd } from "react-icons/md";
 
 function Users() {
   const [userData, setUserData] = useState([]);
@@ -65,6 +65,11 @@ function Users() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({email})
+    }).then((response) => {
+      if (response.ok) {
+       alert('Nieuwe user aangemaakt en email voor registratie verstuurd.')
+      }
+  
     })
   }
 
@@ -153,8 +158,7 @@ function Users() {
           <td className="table-buttons">
             <span onClick={() => updateUser(user)}><BsPencilFill className="icon red" /></span>
             <span onClick={() => showDeletePopUp(user)}><BsTrashFill className="icon red" /></span>
-            <span onClick={() => sendEmail(user.email)}><MdMail className="icon red" /></span>
-          </td>
+            </td>
         </tr>
       ))
 

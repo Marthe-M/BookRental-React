@@ -40,9 +40,15 @@ function Userpage() {
   return (
     <div>
       <nav className="navbar">
-        <button className="request-button" onClick={() => toggleInventory()}> Home </button>
-        <button className="request-button" onClick={() => toggleReservations()}> Reserveringen </button>
-        <button className="request-button" onClick={() => toggleLoans()}> Geleende boeken </button>
+        <button className="request-button" style={{
+          backgroundColor: showInventory ? '#03AB03' : 'black'
+        }} onClick={() => toggleInventory()}> Home </button>
+        <button className="request-button" style={{
+          backgroundColor: showReservations ? '#03AB03' : 'black'
+        }} onClick={() => toggleReservations()}> Reserveringen </button>
+        <button className="request-button" style={{
+          backgroundColor: showLoans ? '#03AB03' : 'black'
+        }} onClick={() => toggleLoans()}> Geleende boeken </button>
         <span className="my-spacer"></span>
         <button className="request-button" onClick={() => logOut()}> Uitloggen </button>
       </nav>

@@ -36,7 +36,7 @@ function Register() {
                 }
             })
                 .then((result) => {
-                    console.log(result)
+                    alert('Registratie is gelukt.')
                     setUsername('');
                     setPassword('');
                     setPassword2('');
