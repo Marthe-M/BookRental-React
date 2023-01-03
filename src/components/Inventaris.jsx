@@ -3,11 +3,14 @@ import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
 import jwt_decode from "jwt-decode";
+import * as _ from "lodash";
 
 function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
   const [query, setQuery] = useState('');
   const [checked, setChecked] = useState(true);
+  const [col, setCol] = useState('');
+  const [ascending, setAscending] = useState(true);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [isbn, setIsbn] = useState('');
@@ -161,10 +164,11 @@ function leaveScreen () {
 }
 
 function filter(data) {
-  return data.filter((item) => {
+  var filtered = data.filter((item) => {
     return (item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1)
         && (!checked || item.isAvailable);
   })
+  return _.orderBy(filtered, col, ascending ? "asc" : "desc")
 }
 
 function search(event) {
@@ -237,9 +241,9 @@ function checkbox(event) {
         <table className="inventaris-table">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Isbn</th>
+              <th><span onClick={() => {setCol("title"); setAscending(!ascending)}}> Title </span></th>
+              <th><span onClick={() => {setCol("author"); setAscending(!ascending)}}> Author </span></th>
+              <th><span onClick={() => {setCol("isbn"); setAscending(!ascending)}}> Isbn </span></th>
               <th></th>
             </tr>
           </thead>

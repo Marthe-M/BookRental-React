@@ -281,3 +281,7 @@ select {
 .request-button:hover {
   background-color: #00E600;
 }
+
+th span {
+  cursor: pointer;
+}
