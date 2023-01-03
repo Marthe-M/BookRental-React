@@ -17,7 +17,7 @@ function Users() {
 
   function getAllUsers() {
     const token = localStorage.getItem("token")
-    fetch("https://localhost:7211/api/User", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/User`, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ function Users() {
     setlastName('');
     setemail('');
     setChecked(false);
-    fetch("https://localhost:7211/api/User/add", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/User/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ function Users() {
   }
 
   function sendEmail(email) {
-    fetch("https://localhost:7211/api/Email", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Email`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ function Users() {
 
   function deleteUser(id) {
     const token = localStorage.getItem("token")
-    fetch(`https://localhost:7211/api/User/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/User/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ function Users() {
       lastName,
       email
     }
-    fetch(`https://localhost:7211/api/User/${newUser.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/User/${newUser.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

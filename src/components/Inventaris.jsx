@@ -28,7 +28,7 @@ function Inventaris({type, reservationData, setReservationData}) {
  
   function getReservations() {
     const token = localStorage.getItem("token")
-    fetch(`https://localhost:7211/api/Reservation/${userIdFromToken}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Reservation/${userIdFromToken}`, {
       method: 'get',
       headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function Inventaris({type, reservationData, setReservationData}) {
 
   function addReservation(bookId) {
     const token = localStorage.getItem("token")
-     fetch("https://localhost:7211/api/Reservation/add", {
+     fetch(`${process.env.REACT_APP_API_URL}/api/Reservation/add`, {
        method: 'POST',
        headers: {
          'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ function Inventaris({type, reservationData, setReservationData}) {
 
    function deleteReservation(id) {
     const token = localStorage.getItem("token")
-      fetch(`https://localhost:7211/api/Reservation/${id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/Reservation/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ function Inventaris({type, reservationData, setReservationData}) {
 
   function getAllBooks() {
     const token = localStorage.getItem("token")
-    fetch("https://localhost:7211/api/Book", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Book`, {
       method: 'get',
       headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function Inventaris({type, reservationData, setReservationData}) {
     setTitle('');
     setAuthor('');
     setIsbn('');
-    fetch("https://localhost:7211/api/Book/add", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Book/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ function Inventaris({type, reservationData, setReservationData}) {
 
   function deleteBook(id) {
     const token = localStorage.getItem("token")
-    fetch(`https://localhost:7211/api/Book/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Book/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ function Inventaris({type, reservationData, setReservationData}) {
       author,
       isbn
     }
-    fetch(`https://localhost:7211/api/Book/${newBook.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Book/${newBook.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
