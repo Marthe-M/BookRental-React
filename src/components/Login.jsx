@@ -6,6 +6,7 @@ function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [incorrect, setIncorrect] = useState(false);
     
     async function loginUser() {
         let userToLogin = {
@@ -22,7 +23,7 @@ function Login() {
             if (response.ok) {
                 return response.text();
             }
-            throw new Error('Gegevens incorrect');
+            setIncorrect(true);
         })
             .then((result) => {
                 localStorage.setItem('token', result);
@@ -40,9 +41,6 @@ function Login() {
                     navigate('/userpage');
                 }
             })
-            .catch((error) => {
-                alert(error)
-            });
     }
 
     return (
@@ -61,6 +59,7 @@ function Login() {
                 <input type='password' placeholder="Wachtwoord*" value={password} onChange={(e) => {
                     setPassword(e.target.value);
                 }} />
+                {incorrect ? <span className="incorrect"> Incorrecte gegevens. </span> : null}
                 <button type="submit" className="login-button">Login</button>
             </form>
         </div>
