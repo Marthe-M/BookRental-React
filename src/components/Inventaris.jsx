@@ -241,9 +241,9 @@ function checkbox(event) {
         <table className="inventaris-table">
           <thead>
             <tr>
-              <th><span onClick={() => {setCol("title"); setAscending(!ascending)}}> Title </span></th>
-              <th><span onClick={() => {setCol("author"); setAscending(!ascending)}}> Author </span></th>
-              <th><span onClick={() => {setCol("isbn"); setAscending(!ascending)}}> Isbn </span></th>
+              <th><span onClick={() => {setCol("title"); setAscending(!ascending)}}> Title {col === "title" ? ascending ? "▼" : "▲" : null} </span></th>
+              <th><span onClick={() => {setCol("author"); setAscending(!ascending)}}> Author {col === "author" ? ascending ? "▼" : "▲" : null} </span></th>
+              <th><span onClick={() => {setCol("isbn"); setAscending(!ascending)}}> Isbn {col === "isbn" ? ascending ? "▼" : "▲" : null} </span></th>
               <th></th>
             </tr>
           </thead>
