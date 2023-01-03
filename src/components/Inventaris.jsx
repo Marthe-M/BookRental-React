@@ -178,7 +178,8 @@ function checkbox(event) {
 
   useEffect(() => {
     type === "Reservations" ? getReservations() : getAllBooks()
-  }, [type, getReservations])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const data = type === "Reservations" ? reservationData : filter(bookData);
 
