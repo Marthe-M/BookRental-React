@@ -20,7 +20,7 @@ function Register() {
                 password,
                 email
             }
-            fetch(`https://localhost:7211/api/Registration`, {
+            fetch(`${process.env.REACT_APP_API_URL}/api/Registration`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

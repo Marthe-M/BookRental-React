@@ -7,7 +7,7 @@ function Loans({ type }) {
 
   function getAllLoans() {
     const token = localStorage.getItem("token")
-    fetch("https://localhost:7211/api/Loan", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Loan`, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ function Loans({ type }) {
   function completeLoan(loan) {
     console.log(loan.id)
     const token = localStorage.getItem("token")
-    fetch(`https://localhost:7211/api/Loan/${loan.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Loan/${loan.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ function Loans({ type }) {
   function getLoansById() {
     const userIdFromToken = jwt_decode(localStorage.getItem('token'))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
     const token = localStorage.getItem("token")
-    fetch(`https://localhost:7211/api/Loan/${userIdFromToken}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Loan/${userIdFromToken}`, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',

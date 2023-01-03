@@ -5,7 +5,7 @@ function Reservations() {
 
   function getAllReservations() {
     const token = localStorage.getItem("token")
-    fetch("https://localhost:7211/api/Reservation", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Reservation`, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ function Reservations() {
 
   function addLoan(reservation) {
     const token = localStorage.getItem("token")
-    fetch("https://localhost:7211/api/Loan/add", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/Loan/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ function Reservations() {
 
 function deleteReservation(id) {
   const token = localStorage.getItem("token")
-  fetch(`https://localhost:7211/api/Reservation/${id}`, {
+  fetch(`${process.env.REACT_APP_API_URL}/api/Reservation/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
