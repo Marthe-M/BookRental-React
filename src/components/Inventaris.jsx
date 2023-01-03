@@ -178,7 +178,7 @@ function checkbox(event) {
 
   useEffect(() => {
     type === "Reservations" ? getReservations() : getAllBooks()
-  }, [])
+  }, [type, getReservations])
 
   const data = type === "Reservations" ? reservationData : filter(bookData);
 

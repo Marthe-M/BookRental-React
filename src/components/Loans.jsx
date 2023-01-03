@@ -52,7 +52,7 @@ function Loans({ type }) {
 
   useEffect(() => {
     type === "UserLoans" ? getLoansById() : getAllLoans()
-  }, [])
+  }, [type])
 
 
   const data = type === "UserLoans" ? loanDataById : loanData;
@@ -65,10 +65,10 @@ function Loans({ type }) {
         <tr key={loan.id}>
           <td>{loan.book.title}</td>
           <td>{loan.book.author}</td>
-          {type == "UserLoans" ? <td></td> : <td>{loan.user.firstName + " "} {loan.user.lastName}</td>}
+          {type === "UserLoans" ? <td></td> : <td>{loan.user.firstName + " "} {loan.user.lastName}</td>}
           <td>{loan.startDate.split('T').shift()}</td>
           <td className="table-buttons">
-            {type == "UserLoans" ? null : <button className="request-button" onClick={() => completeLoan(loan)}> Aanmerken als voltooid </button>}
+            {type === "UserLoans" ? null : <button className="request-button" onClick={() => completeLoan(loan)}> Aanmerken als voltooid </button>}
           </td>
         </tr>
       ))
@@ -78,14 +78,14 @@ function Loans({ type }) {
       <div>
         <div className="inventaris-header">
           <h4>BEKIJK OVERZICHT</h4>
-          {type == "UserLoans" ? <h2>Geleende boeken</h2> : <h2>Uitgeleende boeken</h2>}
+          {type === "UserLoans" ? <h2>Geleende boeken</h2> : <h2>Uitgeleende boeken</h2>}
         </div>
         <table className="inventaris-table">
           <thead>
             <tr>
               <th>Titel</th>
               <th>Auteur</th>
-              {type == "UserLoans" ? <th></th> : <th>Geleend door:</th>}
+              {type === "UserLoans" ? <th></th> : <th>Geleend door:</th>}
               <th>Geleend op:</th>
               <th></th>
             </tr>
