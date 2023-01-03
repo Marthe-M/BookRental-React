@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function Reservations() {
   const [reservationData, setReservationData] = useState([]);
+  const [message, setMessage] = useState('');
 
   function getAllReservations() {
     const token = localStorage.getItem("token")
@@ -32,16 +33,13 @@ function Reservations() {
       if (response.ok) {
         return response.json();
       } else if (response.status === 400) {
-        throw new Error('Boek is niet beschikbaar');
+        setMessage('Boek is niet beschikbaar.');
       } else {
-        throw new Error('Er is iets fout gegaan');
+        setMessage('Er is iets fout gegaan.');
       }
     })
       .then(setTimeout(() => deleteReservation(reservation.id), 500))
       .then(setTimeout(() => window.location.reload(), 500))
-      .catch((error) => {
-        alert(error)
-      });
   }
 
 
@@ -97,9 +95,9 @@ return (
           {listItemsTable}
         </tbody>
       </table>
-
     </div>
-
+    {message ? <div className="inventaris-add-container"><h2>{message}</h2>
+    <div> <button className="basic-button" onClick={() => setMessage('')}>Ok</button> </div></div> : null}
   </div>
 )
 }
