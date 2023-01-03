@@ -7,13 +7,15 @@ function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [message, setMessage] = useState('');
+    const [registered, setRegistered] = useState(false);
 
     function registerUser() {
         const passwordCheck = /^(?=.*?[0-9]).{6,}$/;
         if (password !== password2) {
-            alert('Wachtwoorden komen niet overeen')
+            setMessage('Wachtwoorden komen niet overeen.');
         } else if (!password.match(passwordCheck)) {
-            alert("Wachtwoord moet meer dan 6 karakters hebben en één getal bevatten")
+            setMessage("Wachtwoord moet meer dan 6 karakters hebben en één getal bevatten.");
         } else {
             let userToRegister = {
                 username,
@@ -30,21 +32,14 @@ function Register() {
                 if (response.ok) {
                     return response.json();
                 } else if (response.status === 400) {
-                    throw new Error('Username bestaat al');
+                    setMessage('Gebruikersnaam bestaat al.');
                 } else {
-                    throw new Error('Emailadres incorrect');
+                    setMessage('Incorrect emailadres.');
                 }
             })
                 .then((result) => {
-                    alert('Registratie is gelukt.')
-                    setUsername('');
-                    setPassword('');
-                    setPassword2('');
-                    navigate('/login');
+                    setRegistered(true);
                 })
-                .catch((error) => {
-                    alert(error)
-                });
         }
     }
 
@@ -70,8 +65,11 @@ function Register() {
                 <input type='password' placeholder="Herhaal wachtwoord*" value={password2} onChange={(e) => {
                     setPassword2(e.target.value);
                 }} />
+                {message ? <span className="incorrect">{message}</span> : null}
                 <button type="submit" className="login-button">Registeren</button>
             </form>
+            {registered ? <div className="inventaris-add-container"><h2>Registratie is gelukt!</h2>
+            <div> <button className="basic-button" onClick={() => navigate('/login')}>Ok</button> </div></div> : null}
         </div>
     )
 }
