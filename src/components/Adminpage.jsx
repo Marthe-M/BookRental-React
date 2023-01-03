@@ -29,7 +29,7 @@ function Adminpage() {
   }
 
   const navigate = useNavigate();
-  
+
   function logOut() {
     localStorage.clear();
     navigate('/login');
@@ -39,9 +39,15 @@ function Adminpage() {
   return (
     <div>
       <nav className="navbar">
-        <button className="request-button" onClick={() => toggleReservations()}> Home </button>
-        <button className="request-button" onClick={() => toggleInventory()}> Overzicht boeken </button>
-        <button className="request-button" onClick={() => toggleUsers()}> Overzicht medewerkers </button>
+        <button className="request-button" style={{
+          backgroundColor: showReservations ? '#03AB03' : 'black'
+        }} onClick={() => toggleReservations()}> Home </button>
+        <button className="request-button" style={{
+          backgroundColor: showInventory ? '#03AB03' : 'black'
+        }} onClick={() => toggleInventory()}> Overzicht boeken </button>
+        <button className="request-button" style={{
+          backgroundColor: showUsers ? '#03AB03' : 'black'
+        }} onClick={() => toggleUsers()}> Overzicht medewerkers </button>
         <span className="my-spacer"></span>
         <button className="request-button" onClick={() => logOut()}> Uitloggen </button>
       </nav>

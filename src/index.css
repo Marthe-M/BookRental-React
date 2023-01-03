@@ -47,7 +47,7 @@ body {
 
 .navbar button:hover {
   padding: 15px 50px;
-  background-color:  #03AB03;;
+  background-color:  #03AB03!important;
   font-size: 18px;
   font-family: euclid-semibold;
 }
