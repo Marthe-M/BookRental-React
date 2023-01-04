@@ -9,7 +9,7 @@ function Inventaris({type, reservationData, setReservationData}) {
   const [bookData, setBookData] = useState([]);
   const [query, setQuery] = useState('');
   const [checked, setChecked] = useState(true);
-  const [col, setCol] = useState('');
+  const [col, setCol] = useState('title');
   const [ascending, setAscending] = useState(true);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -165,7 +165,7 @@ function filter(data) {
     return (item.author.toLowerCase().indexOf(query) !== -1 || item.title.toLowerCase().indexOf(query) !== -1)
         && (!checked || item.isAvailable);
   })
-  return _.orderBy(filtered, col, ascending ? "asc" : "desc")
+  return _.orderBy(filtered, [user => user[col].toLowerCase()], ascending ? "asc" : "desc")
 }
 
 function search(event) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
+import * as _ from "lodash";
 
 function Users() {
   const [userData, setUserData] = useState([]);
@@ -15,6 +16,9 @@ function Users() {
   const [deleteId, setDeleteId] = useState()
   const [checked, setChecked] = useState(false);
   const [message, setMessage] = useState('');
+  const [query, setQuery] = useState('');
+  const [col, setCol] = useState('firstName');
+  const [ascending, setAscending] = useState(true);
 
   function getAllUsers() {
     const token = localStorage.getItem("token")
@@ -140,7 +144,17 @@ function Users() {
     setChecked(!checked);
   };
 
-
+  function filter(data) {
+    var filtered = data.filter((item) => {
+      return (item.firstName.toLowerCase().indexOf(query) !== -1 || item.lastName.toLowerCase().indexOf(query) !== -1
+              || item.email.toLowerCase().indexOf(query) !== -1);
+    })
+    return _.orderBy(filtered, [user => user[col].toLowerCase()], ascending ? "asc" : "desc")
+  }
+  
+  function search(event) {
+    setQuery(event.target.value.toLowerCase())
+  }
 
   useEffect(() => {
     getAllUsers()
@@ -148,7 +162,7 @@ function Users() {
 
   const listItemsTable =
     userData &&
-    userData
+    filter(userData)
       .map(user => (
         <tr key={user.id} className="red">
           <td>{user.firstName}</td>
@@ -169,7 +183,7 @@ function Users() {
           <h2>Gebruikers</h2>
         </div>
         <div className="inventaris-searchbar">
-          <input type='text' placeholder="Zoek..." />
+          <input type='text' placeholder="Zoek..." onChange={search} />
           <div><label>
             In dienst:
             <input
@@ -183,9 +197,9 @@ function Users() {
         <table className="inventaris-table">
           <thead>
             <tr className="red">
-              <th>Voornaam</th>
-              <th>Achternaam</th>
-              <th>Email</th>
+            <th><span onClick={() => {setCol("firstName"); setAscending(!ascending)}}> Voornaam {col === "firstName" ? ascending ? "▼" : "▲" : null} </span></th>
+            <th><span onClick={() => {setCol("lastName"); setAscending(!ascending)}}> Achternaam {col === "lastName" ? ascending ? "▼" : "▲" : null} </span></th>
+            <th><span onClick={() => {setCol("email"); setAscending(!ascending)}}> Email {col === "email" ? ascending ? "▼" : "▲" : null} </span></th>
               <th></th>
             </tr>
           </thead>
