@@ -13,7 +13,7 @@ function Login() {
             username,
             password
         }
-        fetch("https://bookapidotnet.azurewebsites.net/api/Login", {
+        fetch(`${process.env.REACT_APP_API_URL}/api/Login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
